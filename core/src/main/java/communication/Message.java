@@ -1,5 +1,7 @@
 package communication;
 
+import communication.messages.StringMessageData;
+
 import java.io.Serializable;
 
 public class Message implements Serializable {
@@ -26,6 +28,10 @@ public class Message implements Serializable {
 
     public static Message errorMessage(String errorText) {
         return new Message(MessageType.ERROR, new StringMessageData(errorText));
+    }
+
+    public static Message okMessage() {
+        return new Message(MessageType.OK, null);
     }
 
 }

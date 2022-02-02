@@ -1,4 +1,6 @@
-package communication;
+package communication.messages;
+
+import communication.MessageData;
 
 import java.io.Serializable;
 

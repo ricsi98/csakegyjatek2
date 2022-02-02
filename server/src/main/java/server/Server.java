@@ -1,8 +1,6 @@
 package server;
 
 import communication.Connection;
-import communication.Message;
-import communication.MessageType;
 import controllers.GamePoolController;
 
 import java.io.IOException;
