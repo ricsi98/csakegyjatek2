@@ -28,6 +28,7 @@ public class GamePoolController implements MessageHandler {
         this.handlers.put(MessageType.PING, new PingController());
         this.handlers.put(MessageType.GAME_LIST_REQUEST, new GameListRequestController(this));
         this.handlers.put(MessageType.CREATE_GAME_REQUEST, new CreateGameRequestController(this));
+        this.handlers.put(MessageType.CHAT, new ChatController());
     }
 
     public List<Game> getGames() {

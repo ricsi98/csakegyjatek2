@@ -4,7 +4,7 @@ public enum MessageType {
     PING,
     OK,
     ERROR,
-    STRING,
+    CHAT,
     JOIN_GAME,
     LEAVE_GAME,
     GAME_LIST_REQUEST,

@@ -26,6 +26,9 @@ public class Client {
 
             ObjectOutputStream ous = new ObjectOutputStream(s.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+
+            ClientInputHandler oh = new ClientInputHandler(ois);
+            oh.start();
             Scanner sc = new Scanner(System.in);
 
             while (true) {
@@ -39,31 +42,17 @@ public class Client {
                     String name = Arrays.stream(command.split(" ")).toList().get(1);
                     int n = Integer.parseInt(Arrays.stream(command.split(" ")).toList().get(2));
                     req = new Message(MessageType.CREATE_GAME_REQUEST, new CreateGameRequest(name, n));
+                } else if (command.startsWith("tell")) {
+                    String message = command.substring(5);
+                    req = new Message(MessageType.CHAT, new StringMessageData(message));
                 }
                 ous.writeObject(req);
-                Message resp = (Message)ois.readObject();
 
-                if (resp.getType() == MessageType.PING) {
-                    System.out.println("PING");
-                } else if (resp.getType() == MessageType.GAME_LIST_RESPONSE) {
-                    GameListResponse gameList = (GameListResponse) resp.getData();
-                    System.out.println("GAMES:");
-                    for (String game : gameList.getGames()) {
-                        System.out.println(game);
-                    }
-                } else if (resp.getType() == MessageType.OK) {
-                    System.out.println("OK");
-                } else if (resp.getType() == MessageType.ERROR) {
-                    String error = ((StringMessageData) resp.getData()).getPayload();
-                    System.out.println("ERROR: " + error);
-                }
             }
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
